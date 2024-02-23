@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/CryptoPortfolio/static/css/main.d54e9263.css",
+    "main.js": "/CryptoPortfolio/static/js/main.56148f29.js",
+    "index.html": "/CryptoPortfolio/index.html",
+    "main.d54e9263.css.map": "/CryptoPortfolio/static/css/main.d54e9263.css.map",
+    "main.56148f29.js.map": "/CryptoPortfolio/static/js/main.56148f29.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d54e9263.css",
+    "static/js/main.56148f29.js"
+  ]
+}
