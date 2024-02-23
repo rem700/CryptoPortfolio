@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ConfigProvider } from "antd";
+import AppLayout from "./components/layouts/AppLayout";
+import { CryptoContextProvider } from "./contex/crypto-contex";
+import { useTheme } from "./theme/theme";
+import { useEffect } from "react";
+import { useAppDispatch } from "./hooks/reduxHooks";
+import { setUser } from "./store/slices/userSlice";
+
+
 
 function App() {
+  const {theme} = useTheme();
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+        const userObject = JSON.parse(userData);
+        dispatch(setUser(userObject));
+    }
+}, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CryptoContextProvider>
+      <ConfigProvider theme={theme} >
+        <AppLayout />   
+      </ConfigProvider>
+          
+    </CryptoContextProvider>
   );
 }
 
