@@ -5,7 +5,7 @@ export function fetchCryptoData(): Promise<ICryptoCurrency[]> {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            'X-API-KEY': 'nbosZcjlCNI1R1eNcgXVyfxZDjRZpiau8INply1HFjA='
+            'X-API-KEY': process.env.REACT_APP_X_API_KEY as string
         }
     };
 
