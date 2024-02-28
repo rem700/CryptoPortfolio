@@ -130,7 +130,7 @@ export function CryptoContextProvider({ children }: { children: React.ReactNode 
                     grow: asset.price < coin.price,
                     growPercent: +calculatePercentageDifference(asset.price, coin.price).toFixed(2),
                     totalAmount: +asset.amount * coin.price,
-                    totalProfit: +asset.amount * coin.price - asset.amount * asset.price,
+                    totalProfit: +(asset.amount * coin.price - asset.amount * asset.price).toFixed(2),
                     ...asset,
                 };
             } else {

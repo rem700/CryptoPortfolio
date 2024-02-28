@@ -108,7 +108,7 @@ const AssetCard: React.FC<AssetCardProps> = ({ asset }) => {
                     }}
                 />
             )}
-            {isAuth && (
+            {isAuth &&!isEditOpen && (
                 <Flex style={buttonsStyle} gap={8}>
                     <Tooltip title="Remove">
                         <Button shape="circle" onClick={handleDeleteClick} icon={<DeleteOutlined />} />

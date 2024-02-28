@@ -44,7 +44,7 @@ export default function Content() {
             <Typography.Title level={3} style={contentTitleStyle}>Portfolio: ${portfolioSumm()}</Typography.Title>
             <PortfolioChart />
             {(isTablet || isMobile) && <AssetsCards />}
-            <AssetsTable />
+            {assets.length !== 0 && <AssetsTable />}
         </Layout.Content>
     )
 }

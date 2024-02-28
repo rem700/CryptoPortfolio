@@ -11,26 +11,38 @@ interface RegisterFormProps {
 type FieldType = {
     email?: string;
     password?: string;
-    confirm?: string;
+    repeatedPassword?: string;
 };
 
 export function RegistrationForm({ onLogin, onClose }: RegisterFormProps) {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ confirmedPassword, setConfirmedPassword ] = useState('');
+    const [ repeatedPassword, setRepeatedPassword ] = useState('');
+    const [error, setError] = useState('');
     const [ submitted, setSubmitted ] = useState(false);
+    
     const signIn = useSignIn();
     const logIn = useLogIn();
+    
 
     const onFinish = () => {
-        signIn(email, password, confirmedPassword)
+        if (password !== repeatedPassword) { 
+            setError('Passwords do not match. Please try again.');
+            return; 
+        }
+
+        signIn(email, password)
             .then(() => {
                 setSubmitted(true);
-                logIn(email, password); 
-                onClose && onClose(); 
+                logIn(email, password, true);
+                onClose && onClose();
             })
             .catch((error) => {
-                
+                if (error.code === 'auth/email-already-in-use') {
+                    setError('This email is already in use. Please log in or use a different email.');
+                } else {
+                    setError('An error occurred during registration. Please try again.');
+                }
             });
     };
     
@@ -48,13 +60,31 @@ export function RegistrationForm({ onLogin, onClose }: RegisterFormProps) {
         )
     }
 
+    if (error) {
+        return (
+            <Result
+                status="warning"
+                title="Registration Error"
+                subTitle={error}
+                extra={[
+                    <Button type="primary" key="tryAgain" onClick={() => setError('')}>
+                        Try Again
+                    </Button>,
+                    <Button key="login" onClick={onLogin}>
+                        Log In
+                    </Button>
+                ]}
+            />
+        );
+    }
+
     return (
         <Form
             name="basic"
-            labelCol={{ span: 4 }}
+            labelCol={{ span: 6 }}
             wrapperCol={{ span: 18 }}
             layout="horizontal"
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             autoComplete="off"
         >
@@ -64,7 +94,7 @@ export function RegistrationForm({ onLogin, onClose }: RegisterFormProps) {
                 rules={[{ required: true, message: 'Please input your email!' }]}
             >
                 <Input
-                    value={email || ''}
+                    value={''}
                     onChange={(e) => {setEmail(e.target.value)}}
                 />
             </Form.Item>
@@ -75,19 +105,19 @@ export function RegistrationForm({ onLogin, onClose }: RegisterFormProps) {
                 rules={[{ required: true, message: 'Please input your password!' }]}
             >
                 <Input.Password 
-                    value={password || ''}
+                    value={''}
                     onChange={(e) => {setPassword(e.target.value)}}
                 />
             </Form.Item>
 
             <Form.Item<FieldType>
-                label="Confirm"
-                name="confirm"
-                rules={[{ required: true, message: 'Please repeat your password!' }]}
+                label="Confirm Password"
+                name="repeatedPassword"
+                rules={[{ required: true, message: 'Please confirm your password!' }]}
             >
                 <Input.Password 
-                    value={confirmedPassword || ''}
-                    onChange={(e) => {setConfirmedPassword(e.target.value)}}
+                    value={''}
+                    onChange={(e) => {setRepeatedPassword(e.target.value)}}
                 />
             </Form.Item>
 
@@ -97,7 +127,6 @@ export function RegistrationForm({ onLogin, onClose }: RegisterFormProps) {
                 </Button>
                 <Typography.Text>Already have an account? <Typography.Link strong onClick={onLogin}>Log In</Typography.Link></Typography.Text>
             </Form.Item>
-
         </Form>
     )
 }

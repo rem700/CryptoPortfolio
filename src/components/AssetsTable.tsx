@@ -8,6 +8,7 @@ interface DataType {
     name: string | undefined;
     price: number | undefined;
     amount: number | undefined;
+    totalProfit: number | undefined;
 }
 
 const columns: TableColumnsType<DataType> = [
@@ -41,6 +42,16 @@ const columns: TableColumnsType<DataType> = [
             return 0;
         },
     },
+    {
+        title: 'Profit, $',
+        dataIndex: 'totalProfit',
+        sorter: (a, b) => {
+            if (a.totalProfit !== undefined && b.totalProfit !== undefined) {
+                return a.totalProfit - b.totalProfit;
+            }
+            return 0;
+        },
+    },
 ];
 
 
@@ -52,8 +63,11 @@ export function AssetsTable() {
         key: a.id,
         name: a.name,
         price: a.price,
-        amount: a.amount
+        amount: a.amount,
+        totalProfit: a.totalProfit
     }))
+
+    
     return (
         <Table columns={columns} dataSource={data} pagination={false} />
     )

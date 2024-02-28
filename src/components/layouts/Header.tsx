@@ -9,8 +9,8 @@ import { LoginForm } from "../LoginForm";
 import { RegistrationForm } from "../RegistrationForm";
 import { useAuth } from "../../hooks/useAuth";
 import { UserOutlined } from '@ant-design/icons';
-import useLogOut from "../../hooks/useLogOut";
 import { CryptoSelect } from "../CryptoSelect";
+import { useLogOut } from "../../hooks/useLogOut";
 
 
 const headerStyle: React.CSSProperties = {
@@ -48,7 +48,7 @@ export default function Header() {
         {
             key: '1',
             label: (
-                <Typography.Text style={{fontSize: 14}} onClick={logOut}>Log Out <Button size="small" shape="circle" icon={<LogoutOutlined />} /></Typography.Text>
+                <Typography.Text style={{ fontSize: 14 }} onClick={logOut}>Log Out <Button size="small" shape="circle" icon={<LogoutOutlined />} /></Typography.Text>
             ),
         }
     ];
@@ -103,22 +103,20 @@ export default function Header() {
 
     return (
         <Layout.Header style={headerStyle}>
-            <CryptoSelect crypto={crypto} onSelect={handleSelect} />
-
             <Flex gap={10}>
-                {isAuth ? (
-                    <Flex align="center">
-                        {!isMobile && <Tag color="geekblue" icon={<MailOutlined />}>{email}</Tag>}
-                        <Dropdown menu={{ items }} placement="bottomRight" arrow>
-                            <Avatar style={{cursor: 'pointer'}} icon={<UserOutlined />} />
-                        </Dropdown>
-                    </Flex>
-                ) : (
-                    <Button onClick={handleLogin} style={headerButtonStyle}>Log In</Button>
-                )}
+                <CryptoSelect crypto={crypto} onSelect={handleSelect} />
                 <Button onClick={handleAddAsset} style={headerButtonStyle}>Add Asset</Button>
             </Flex>
-
+            {isAuth ? (
+                <Flex align="center">
+                    {!isMobile && <Tag color="geekblue" icon={<MailOutlined />}>{email}</Tag>}
+                    <Dropdown menu={{ items }} placement="bottomRight" arrow>
+                        <Avatar style={{ cursor: 'pointer' }} icon={<UserOutlined />} />
+                    </Dropdown>
+                </Flex>
+            ) : (
+                <Button onClick={handleLogin} style={headerButtonStyle}>Log In</Button>
+            )}
             <Modal open={showModal} style={{ maxWidth: '420px' }} onCancel={() => setshowModal(false)} footer={null}>
                 <CryptoModal coin={coin} />
             </Modal>

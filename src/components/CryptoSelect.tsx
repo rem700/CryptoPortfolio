@@ -25,7 +25,7 @@ export const CryptoSelect: React.FC<CryptoSelectProps> = ({ crypto, onSelect }) 
             open={select}
             onClick={() => setSelect((prev) => !prev)}
             style={selectStyle}
-            placeholder="press / to open"
+            placeholder="Crypto Currency Statistics"
             onSelect={onSelect}
             options={crypto.map((coin: ICryptoCurrency) => ({
                 label: coin.name,

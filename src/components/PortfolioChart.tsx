@@ -1,7 +1,7 @@
 import { Flex, Grid } from 'antd';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useContext } from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import CryptoContext from '../contex/crypto-contex';
 
 const { useBreakpoint } = Grid;
@@ -43,7 +43,7 @@ export function PortfolioChart() {
 
     return (
         <Flex justify='center' style={pieWrapperStyle}>
-            <Pie key={assets.length} data={data} />
+            <Doughnut key={assets.length} data={data} />
         </Flex>
     )
 }

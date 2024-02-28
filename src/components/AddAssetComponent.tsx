@@ -31,7 +31,7 @@ export function AddAssetComponent({ onClose }: AddAssetComponentProps) {
                 price: values.price,
                 date: values.date?.$d ?? new Date(),
             };
-
+            assetRef.current = newAsset;
             try {
                 isAuth ? await addNewAssetToFirebase(newAsset) : addNewAsset(newAsset);
                 setSubmitted(true);

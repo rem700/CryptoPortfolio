@@ -5,7 +5,7 @@ import { removeUser } from '../store/slices/userSlice';
 import CryptoContext from '../contex/crypto-contex';
 
 
-const useLogOut = () => {
+export const useLogOut = () => {
     const dispatch = useAppDispatch();
     const {clearAssets} = useContext(CryptoContext)
 
@@ -24,5 +24,3 @@ const useLogOut = () => {
 
     return logOut;
 };
-
-export default useLogOut;

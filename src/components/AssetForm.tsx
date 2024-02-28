@@ -46,8 +46,8 @@ export const AssetForm: React.FC<AssetFormProps> = ({
     return (
         <Form
             form={form}
-            labelCol={{ span: 4 }}
-            wrapperCol={{ span: 18 }}
+            labelCol={{ span: isEditAssetForm? 7 : 4 }}
+            wrapperCol={{ span: isEditAssetForm? 20 : 18 }}
             layout="horizontal"
             initialValues={initialValues || {
                 price: +coin.price.toFixed(2),
@@ -58,36 +58,47 @@ export const AssetForm: React.FC<AssetFormProps> = ({
         >
             <Flex align="center" gap={10}>
                 <img src={coin.icon} style={coinIconStyle} alt={coin.id} />
-                <Typography.Title style={{ margin: 0 }} level={3}>[{coin.symbol}] {coin.name}</Typography.Title>
+                <Typography.Title style={{ margin: 0 }} level={isEditAssetForm? 5 : 3}>[{coin.symbol}] {coin.name}</Typography.Title>
             </Flex>
             <Divider />
 
             <Form.Item
                 label="Amount"
                 name="amount"
-                rules={[{
-                    type: 'number',
-                    required: true,
-                    min: 0,
-                    message: 'Plese enter you amount'
-                }]}>
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please enter your amount',
+                    },
+                    {
+                        type: 'number',
+                        min: 0.01, 
+                        message: 'Amount must be greater than zero',
+                    }
+                ]}>
+            
                 <InputNumber
                     placeholder="Please enter coin amount"
                     onChange={handleAmountChange}
-                    style={inputStyle} />
+                    style={inputStyle} 
+                    min={0.01} />
             </Form.Item>
 
             <Form.Item
                 label="Price"
                 name="price"
-                rules={[{
-                    type: 'number',
-                    min: 0
-                }]}>
+                rules={[
+                    {
+                        type: 'number',
+                        min: 0.01, 
+                        message: 'Price must be greater than zero',
+                    }
+                ]}>
                 <InputNumber
                     placeholder="You can change coin price"
                     onChange={handlePriceChange}
-                    style={inputStyle} />
+                    style={inputStyle}
+                    min={0.01} />
             </Form.Item>
 
             <Form.Item
