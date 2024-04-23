@@ -11,3 +11,6 @@ body {
   background-color: white !important;
 }
 
+.custom-flex .ant-typography, .custom-flex .ant-tag {
+  font-size: inherit;
+}

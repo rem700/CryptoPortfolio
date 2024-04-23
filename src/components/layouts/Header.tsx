@@ -44,11 +44,15 @@ export default function Header() {
         padding: isMobile ? '4px 8px' : '4px 15px'
     };
 
+    const modalStyle: React.CSSProperties = {
+        maxWidth: !isMobile ? '420px' : '100%',
+    };
+
     const items: MenuProps['items'] = [
         {
             key: '1',
             label: (
-                <Typography.Text style={{ fontSize: 14 }} onClick={logOut}>Log Out <Button size="small" shape="circle" icon={<LogoutOutlined />} /></Typography.Text>
+                <Typography.Text onClick={logOut}>Log Out <Button size="small" shape="circle" icon={<LogoutOutlined />} /></Typography.Text>
             ),
         }
     ];
@@ -117,7 +121,7 @@ export default function Header() {
             ) : (
                 <Button onClick={handleLogin} style={headerButtonStyle}>Log In</Button>
             )}
-            <Modal open={showModal} style={{ maxWidth: '420px' }} onCancel={() => setshowModal(false)} footer={null}>
+            <Modal open={showModal} style={modalStyle} onCancel={() => setshowModal(false)} footer={null}>
                 <CryptoModal coin={coin} />
             </Modal>
 

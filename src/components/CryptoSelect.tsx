@@ -16,8 +16,14 @@ export const CryptoSelect: React.FC<CryptoSelectProps> = ({ crypto, onSelect }) 
     const isMobile = screens.xs && !screens.sm;
 
     const selectStyle: React.CSSProperties = {
-        width: !isMobile ? 250 : '100%',
+        width: !isMobile ? 250 : 120,
         marginRight: '10px'
+    };
+
+    const iconImageStyle: React.CSSProperties = {
+        width: '20px', 
+        paddingTop: '6px',
+        display: !isMobile ? 'block' : 'none'
     };
 
     return (
@@ -34,7 +40,7 @@ export const CryptoSelect: React.FC<CryptoSelectProps> = ({ crypto, onSelect }) 
             }))}
             optionRender={(option) => (
                 <Space>
-                    <img src={option.data.icon} style={{ width: '20px', paddingTop: '6px' }} alt={option.data.id} />
+                    <img src={option.data.icon} style={iconImageStyle} alt={option.data.id} />
                     <span> {option.data.label}</span>
                 </Space>
             )}
