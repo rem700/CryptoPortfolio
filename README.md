@@ -2,6 +2,6 @@ This is a small project in which you can present your crypto wallet in the form 
 
 It provides simple registration and data storage for registered users
 
-Stack: React, TypeScript, Redux, Firebase
+<b>React, TypeScript, Redux, Firebase</b>
 
 Link: [CryptoPortfolio](https://rem700.github.io/CryptoPortfolio/)
